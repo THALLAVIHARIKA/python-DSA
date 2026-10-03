@@ -7,12 +7,12 @@ class Stack:
 
   def pop(self):
     if self.isEmpty():
-      return "Stack is empty"
+      return "underflow"
     return self.stack.pop()
 
   def peek(self):
     if self.isEmpty():
-      return "Stack is empty"
+      return "underflow"
     return self.stack[-1]
 
   def isEmpty(self):
