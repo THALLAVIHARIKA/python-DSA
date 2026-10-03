@@ -2,65 +2,77 @@ class Node:
   def __init__(self,data):
     self.data=data
     self.next=None
-  def insert(self,data):#this works for insert at end
-    new_node = Node(data)
-    temp=self
-    while temp.next!=None:
-      temp=temp.next
-    temp.next=new_node
-  def insertAtBeginning(self,data):
-    new_node = Node(data)
-    new_node.next=self
-    #self=new_node(thisiswrongselfalocalparameterchangethelocalvariableselfwouldntchangeactualheadvariable)
-    return new_node
-  def insertAtLocation(self,data,pos):
-    new_node = Node(data)
-    temp=self
-    for i in range(pos-1):
-      temp=temp.next
-    new_node.next=temp.next
-    temp.next=new_node
-  def deleteFromBeginning(self):
-    if self is None:
-      return None
-    return self.next
-  def delete_end(self):
-    if self.next is None:
-      return None
-    temp=self
-    while temp.next.next is not None:
-      temp=temp.next
-    temp.next=None
-    return self
-  def Display(self):
-    temp=self
-    while temp!=None:
-      print(temp.data,end=" ")
-      temp=temp.next
-  def search(self,value):
-    temp=self
-    i=0
-    while temp is not None:
-      if temp.data==value:
-        print()
-        print(f"{value} found at {i}")
+
+class LinkedList():
+  def __init__(self):
+    self.head=None
+    self.size=0
+  def add(self,data):
+    if self.head==None:
+      self.head=Node(data)
+      self.size+=1
+      return
+    cN=self.head
+    while cN.next is not None:
+      cN=cN.next
+    cN.next=Node(data)
+  def traverse(self):
+    cN=self.head
+    while cN.next is not None:
+      print(cN.data,end="->")
+      cN=cN.next
+    print(cN.data)
+  def search(self,data):
+    if self.head==None:
+      print("no element in ll")
+      return
+    ind=0
+    cN=self.head
+    while cN.next is not None:
+      if cN.data==data:
+        print(f'element{data} is found at {ind} index')
         return
-      temp=temp.next
-      i += 1
-    print()
-    print("{value} is  not found")
-head=Node(2)
-head.next=Node(3)
-head.insert(4)
-head.insert(5)
-head=head.insertAtBeginning(1)
-head.insertAtLocation(0,1)
-head=head.deleteFromBeginning()
-head=head.delete_end()
-head.Display()
-head.search(2)
-# head = Node(2)
-# head.next = Node(3)
-# head.next.next = Node(4)
-# temp=head
-# head.Display()-
+      cN=cN.next
+      ind+=1
+      if cN.next==data:
+        print(f'element{data} is found at {ind} index')
+        return
+    print("element not found")
+    return 
+  def len(self):
+    return self.size
+    count=0
+    cN=self.head
+  def begin(self,data):
+    node=Node(data)
+    node.next=self.head
+    self.head=node
+  def delBegin(self):
+    if self.head==None:
+      return
+    else:
+      self.head=self.head.next
+  def delLast(self):
+    if self.head==None:
+      return
+    cN=self.head
+    while cN.next.next is not None:
+      cN=cN.next
+    cN.next=None
+    self.size-=1
+
+ll=LinkedList()
+ll.add(10)
+ll.add(20)
+ll.add(30)
+ll.add(40)
+ll.add(50)
+ll.traverse()
+ll.search(30)
+print(ll.len())
+ll.begin(100)
+ll.traverse()
+ll.delBegin()
+ll.traverse()
+ll.delLast()
+ll.traverse()
